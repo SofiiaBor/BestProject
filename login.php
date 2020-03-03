@@ -1,3 +1,23 @@
+<?php
+    session_start();
+    require('config.php');
+    if(isset($_POST['exit'])){
+        session_destroy();
+    }
+    else if($users["{$_POST['login']}"] == $_POST['password']){
+        $_SESSION['login'] = $_POST['login'];
+        $_SESSION['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        header('Location: ./index.php');
+    }
+    else if($_SESSION['login'] == 'user' && password_verify('123', $_SESSION['password'])){
+        header('Location: ./index.php');
+    }
+    else {
+        echo "Непрвильные данные";
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
