@@ -16,4 +16,4 @@
         2 => 'Чилмобил'
     );
 
-    $access = true;
+    $access = false;

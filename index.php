@@ -38,7 +38,7 @@
             <input type="submit" style="float: right; margin-top: 20px; margin-right: 40px;" value="Выйти" name="exit" class="btn btn-primary">
         </form>
 		<div class="container">
-			<p style="font-variant: small-caps;font-size: 40px; text-align: center ">Петров В.И.</p>
+			<p style="font-variant: small-caps;font-size: 40px; text-align: center "><?php echo $login; ?></p>
 		</div>
 	</header>
 	<div style="margin-left:500px; max-width: 100%"><br><br>

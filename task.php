@@ -2,9 +2,8 @@
   session_start();
   require('config.php');
   $login = $_SESSION['login'];
-  $course = $courses[$_GET['course']];
+  $task = $tasks1[$_GET['task']];
 ?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -15,7 +14,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	
-<title><?php echo $course; ?></title>
+<title><?php echo $task; ?></title>
 <script>
 </script>
 <style>
@@ -39,29 +38,22 @@
 		</div>
 	</header>
 	<div style="margin-left:500px; max-width: 100%"><br><br>
-        <?php
-            if($access)
-                echo "<button style=\"float: right; padding: 6px 12px;\" type=\"button\" class=\"btn btn-primary \">Добавить задачу</button>"
-
-        ?>
-		<p style="font-size: 30px;">Список задач</p>
-		<?php
+        <?php 
             if($access)
                 echo "<button style=\"float: right; padding: 6px 42px;\" type=\"button\" class=\"btn btn-primary \">История</button>";
-
-            $i = 0;
-            foreach($tasks1 as $task){
-                echo "<p style=\"font-size: 20px;\"><a href=\"./task.php?task={$i}\">{$task}</a>";
-
-                if ($access)
-                    echo " <button id=\"btn\"> ✎</button><button id=\"btn\"> ❌</button>";
-                echo "</p>";
-                $i++;
-            }
+        ?>
+		<p style="font-size: 30px;"><?php echo $task; ?> <?php if($access) echo "<button id=\"btn\"> ✎</button>"; ?></p>
+		<p style="font-size: 20px;">Описание <?php if($access) echo "<button id=\"btn\"> ✎</button>"; ?></p>
+		<p style="font-size: 20px;">Пример <?php if($access) echo "<button id=\"btn\"> ✎</button>"; ?></p>
+		<?php
+            if($access)
+                echo "<p style=\"font-size: 30px;\">Отчёт:</p>";
+            else
+                echo "<button>Загрузить файл</button>";
         ?>
 	</div>
 	<div style="max-width: 100px; margin-right: auto; margin-left: auto;">
-		<button style="margin-top: 22px; margin-top: 22px;padding-leftfalse: 8px;padding-right: 8px;"><a href="../BestProject/index.php">Назад</a></button>
+		<button style="margin-top: 22px; margin-top: 22px;padding-left: 8px;padding-right: 8px;"><a href="../BestProject/index.php">Назад</a></button>
 	</div>
 </body>
 </html>
