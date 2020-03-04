@@ -1,21 +1,37 @@
 <?php
     session_start();
     require('config.php');
+    # когда появится БД, $users убрать
+    function auth($login, $password, $users)
+    {
+        if($users["{$login}"] == $password)
+        {
+            $_SESSION['login'] = $login;
+            $_SESSION['password'] = password_hash($password, PASSWORD_DEFAULT);
+            return 0;
+        }
+        else
+            return 1;
+    }
+
+
+    if(isset($_POST['login']))
+        if(auth($_POST['login'], $_POST['password'], $users) == 0)
+        {
+            header('Location: ./index.php');
+        }
+        else
+        {
+            echo "Неправильные данные";
+        }
+
+    if(isset($_SESSION['login']))
+        header('Location: ./index.php');
+
     if(isset($_POST['exit'])){
         session_destroy();
     }
-    else if($users["{$_POST['login']}"] == $_POST['password']){
-        $_SESSION['login'] = $_POST['login'];
-        $_SESSION['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        header('Location: ./index.php');
-    }
-    else if($_SESSION['login'] == 'user' && password_verify('123', $_SESSION['password'])){
-        header('Location: ./index.php');
-    }
-    else {
-        echo "Непрвильные данные";
-    }
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,14 +40,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, maximum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 	<title>Document</title>
 </head>
 <body>
 	<div class="container">
-		<form class="form-signin" method="POST">
-			<input type="text" name="username" class="form-control" placeholder="Логин" required>
+		<form class="form-signin" action="login.php" method="POST">
+			<input type="text" name="login" class="form-control" placeholder="Логин" required>
 			<input type="password" name="password" class="form-control" placeholder="Пароль" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 		</form>
